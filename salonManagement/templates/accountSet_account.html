@@ -24,15 +24,52 @@
         </div>
     </form>
 
-    <form method="POST" action="{{ url_for('delete_account')}}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+    <form id="deleteForm" method="POST" action="{{ url_for('delete_account')}}">
         <div class="account-section">
             <h3>Delete Account</h3>
             <p class="warning-text">Warning: This action is permanent and cannot be undone. You will lose all your data.</p>
 
             <div class="form-btn-cont">
-                <button type="submit" class="delete-account-btn">Delete My Account</button>
+                <button type="button" id="deleteAccountBtn" class="delete-account-btn">Delete My Account</button>
             </div>
         </div>
     </form>
 </div>
+
+<!-- Delete Account Modal -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <div>Are you sure you want to delete your account? This action cannot be undone.</div>
+    <div class="modal-buttons">
+      <button id="confirmDeleteBtn" class="btn btn-logout" style="background-color: #dc3545;">Yes, Delete</button>
+      <button id="cancelDeleteBtn" class="btn btn-cancel">No</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var deleteModal = document.getElementById("deleteModal");
+  var deleteBtn = document.getElementById("deleteAccountBtn");
+  var confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+  var cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+  var deleteForm = document.getElementById("deleteForm");
+
+  deleteBtn.onclick = function() {
+    deleteModal.style.display = "block";
+  }
+
+  cancelDeleteBtn.onclick = function() {
+    deleteModal.style.display = "none";
+  }
+
+  confirmDeleteBtn.onclick = function() {
+    deleteForm.submit();
+  }
+
+  window.onclick = function(event) {
+    if (event.target == deleteModal) {
+      deleteModal.style.display = "none";
+    }
+  }
+</script>
 {% endblock settings %}

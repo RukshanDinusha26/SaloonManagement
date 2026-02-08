@@ -29,7 +29,8 @@ stripe.api_key = app.config['STRIPE_SECRET_KEY']
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html')
+    employees = db.session.query(Employee, User).join(User).all()
+    return render_template('home.html', employees=employees)
 
 def admin_required(f):
     @wraps(f)
@@ -73,7 +74,7 @@ def login():
                 if user.employee_id:
                     session['is_employee'] = True
                     login_user(user, remember=True)
-                    flash('Welcome'+user.username+'You have Successfully Logged In as an Employee!', 'success')
+                    flash('Welcome '+user.username+' You have Successfully Logged In as an Employee!', 'success')
                     return redirect(url_for('home'))
                 
                 login_user(user, remember=True)
@@ -346,7 +347,7 @@ def is_float(value):
 @app.route("/report/financial")   
 @admin_required
 def report_financial():
-    csv_file_path = 'C:\\Users\\HP\\Documents\\Project\\uniProject_year1\\salonManagement\\static\\reports\\appointment_report.csv'
+    csv_file_path = os.path.join(app.root_path, 'static', 'reports', 'appointment_report.csv')
     daily_report = []
     weekly_report = []
     monthly_report = []
@@ -381,9 +382,9 @@ def report_financial():
             })
 
     # Filter and sum only numeric values
-    daily_total = sum(float(item['payment'].replace('$', '')) for item in daily_report if is_float(item['payment'].replace('$', '')))
-    weekly_total = sum(float(item['payment'].replace('$', '')) for item in weekly_report if is_float(item['payment'].replace('$', '')))
-    monthly_total = sum(float(item['payment'].replace('$', '')) for item in monthly_report if is_float(item['payment'].replace('$', '')))
+    daily_total = sum(float(str(item['payment']).replace('$', '').replace('Rs.', '').replace(',', '').strip()) for item in daily_report if is_float(str(item['payment']).replace('$', '').replace('Rs.', '').replace(',', '').strip()))
+    weekly_total = sum(float(str(item['payment']).replace('$', '').replace('Rs.', '').replace(',', '').strip()) for item in weekly_report if is_float(str(item['payment']).replace('$', '').replace('Rs.', '').replace(',', '').strip()))
+    monthly_total = sum(float(str(item['payment']).replace('$', '').replace('Rs.', '').replace(',', '').strip()) for item in monthly_report if is_float(str(item['payment']).replace('$', '').replace('Rs.', '').replace(',', '').strip()))
 
 
     # Pass the data to the template
@@ -397,7 +398,8 @@ def report_financial():
 
 
 def load_customer_data():
-    data = pandas.read_csv('C:\\Users\\HP\\Documents\\Project\\uniProject_year1\\salonManagement\\customer.csv')
+    csv_path = os.path.join(app.root_path, 'customer.csv')
+    data = pandas.read_csv(csv_path)
     return data
 
 @app.route("/report/customer_trends")
@@ -456,7 +458,8 @@ def report_customer_trends():
     return render_template('report_customer_trends.html', age_plot_img=age_img_base, gender_plot_img=gender_img_base, violin_plot_img=violin_img_base,active_tab='customer')
 
 def load_service_data():
-    data = pandas.read_csv('C:\\Users\\HP\\Documents\\Project\\uniProject_year1\\salonManagement\\service.csv')
+    csv_path = os.path.join(app.root_path, 'service.csv')
+    data = pandas.read_csv(csv_path)
        
     data['Date'] = pandas.to_datetime(data['Date'], errors='coerce')
     data = data.dropna(subset=['Date'])

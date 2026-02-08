@@ -30,7 +30,7 @@
               <td>{{ entry.employee }}</td>
               <td>{{ entry.timeslot }}</td>
               <td>{{ entry.service }}</td>
-              <td>${{ entry.payment }}</td>
+              <td>Rs. {{ entry.payment }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -40,7 +40,7 @@
           <tbody>
             <tr>
               <td>Total Payments</td>
-              <td>${{ daily_total }}</td>
+              <td>Rs. {{ daily_total }}</td>
             </tr>
           </tbody>
         </table>
@@ -62,7 +62,7 @@
               <td>{{ entry.employee }}</td>
               <td>{{ entry.week }}</td>
               <td>{{ entry.service }}</td>
-              <td>${{ entry.payment }}</td>
+              <td>Rs. {{ entry.payment }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -72,7 +72,7 @@
           <tbody>
             <tr>
               <td>Total Payments</td>
-              <td>${{ weekly_total }}</td>
+              <td>Rs. {{ weekly_total }}</td>
             </tr>
           </tbody>
         </table>
@@ -94,7 +94,7 @@
               <td>{{ entry.employee }}</td>
               <td>{{ entry.month }}</td>
               <td>{{ entry.service }}</td>
-              <td>${{ entry.payment }}</td>
+              <td>Rs. {{ entry.payment }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -104,7 +104,7 @@
           <tbody>
             <tr>
               <td>Total Payments</td>
-              <td>${{ monthly_total }}</td>
+              <td>Rs. {{ monthly_total }}</td>
             </tr>
           </tbody>
         </table>

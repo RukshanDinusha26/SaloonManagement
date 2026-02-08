@@ -13,7 +13,7 @@
         <form action="{{ url_for('create_checkout_session') }}" method="POST">
             <input type="hidden" name="service_id" value="{{ service.service_id }}">
             <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
-            <button type="submit">Pay Now</button>
+            <button type="submit" class="btn">Pay Now</button>
         </form>
         <a href="{{ url_for('home')}}" class="btn btn-pay-later">Pay Later</a>
     </div>

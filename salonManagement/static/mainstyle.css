@@ -328,11 +328,20 @@
 .modal-content {
   background-color: #fff;
   margin: 15% auto;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #888;
   width: 400px; 
   text-align: center;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between text and buttons */
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Gap between Yes and No buttons */
 }
 
 .modal {
@@ -399,68 +408,161 @@
   transform: rotate(180deg);
 }
 
-#services {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+#services, #team {
+  display: block;
   background-color: #ffffff; 
   color: #333;
-  padding: 20px 19%;
-}
-
-.service-item {
-  flex: 1;
-  margin: 0 10px;
+  padding: 50px 0;
   text-align: center;
 }
 
-.service-item h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+#services h2, #team h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
   color: #7d4a95;
 }
 
-.service-item p {
-  font-size: 1rem;
+.service-cards, .team-cards {
+  display: flex;
+  overflow-x: auto;
+  gap: 30px;
+  padding: 20px 19%;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.service-cards::-webkit-scrollbar, .team-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 300px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  scroll-snap-align: center;
+  transition: transform 0.3s ease;
+  border: 1px solid #eee;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin: 15px 0 10px;
+  color: #7d4a95;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #666;
   line-height: 1.5;
 }
 
 .sv-img {
-  width: 200px;
-  border-radius: 5px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 #offers {
+  display: block;
   background: linear-gradient(to left, #a468a9, #bb86c0); 
   text-align: center;
-  padding: 150px 19%;
+  padding: 60px 0;
 }
 
 #offers h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
-#offers p {
+.offer-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.offer-cards .card {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  min-height: 180px;
+  flex: none; /* Prevent flexing */
+  
+  /* Ticket Shape with "Holes" using transparent gradients */
+  background: 
+    radial-gradient(circle at 75% 0, transparent 15px, white 16px) top left,
+    radial-gradient(circle at 75% 100%, transparent 15px, white 16px) bottom left;
+  background-size: 100% 51%;
+  background-repeat: no-repeat;
+  background-color: white; /* Ensure base is white */
+  
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border: none;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  padding: 20px 130px 20px 30px; /* Fixed right padding to clear the stub */
+  
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.offer-cards .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Dashed Separator Line */
+.offer-cards .card::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 75%;
+  border-left: 2px dashed #d0d0d0;
+}
+
+/* "CLAIM" Stub Text */
+.offer-cards .card::after {
+  content: 'CLAIM';
+  position: absolute;
+  right: 6%; 
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
   font-size: 1.1rem;
-  line-height: 1.7;
+  font-weight: 700;
+  color: #ccc;
+  letter-spacing: 3px;
 }
 
-.offer-item {
-  display: inline-block;
-  margin: 20px;
-  padding: 15px;
-  background-color: #fff;
-  color: #333;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 200px;
-}
-
-.offer-item h4 {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
+.offer-cards .card h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
   color: #7d4a95;
+  margin: 0 0 8px 0;
+}
+
+.offer-cards .card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
 }
 
 #about {
@@ -514,3 +616,35 @@ html {
 .navlist a.active::after {
   background-color: #bb86c0;
 }
+
+/* Stylist Section Specifics - Centered Box Layout */
+.team-cards {
+  display: flex;
+  overflow-x: auto;
+  gap: 30px;
+  
+  /* Create the "Box in the Center" */
+  width: 70%; /* Reduced width to 70% */
+  max-width: 1200px; /* Optional cap for very large screens */
+  margin: 0 auto; /* Center the container itself */
+  padding: 20px 5px; /* Vertical padding for hover effects */
+  
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.team-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.team-cards .card {
+  /* Logic: Inside the 85% box, we want exactly 3 items.
+     Width = (100% of container - 2 gaps of 30px) / 3 items */
+  flex: 0 0 calc((100% - 60px) / 3);
+  width: calc((100% - 60px) / 3);
+  scroll-snap-align: start; /* Align card to start of box when scrolling */
+  max-width: none;
+  margin-right: 0;
+}
+.contact-details { margin-top: 50px; }

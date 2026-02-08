@@ -31,6 +31,7 @@
     {% if request.endpoint == 'home' %}
     <li><a class="menu" href="#home">Home</a></li>
     <li><a class="menu" href="#services">Services</a></li>
+    <li><a class="menu" href="#team">Stylists</a></li>
     <li><a class="menu" href="#offers">Offers</a></li>
     <li><a class="menu" href="#about">About Us</a></li>
      {% endif %}
@@ -42,7 +43,7 @@
          <a href="{{ url_for('report') }}">Report Generation</a>
          <a href="{{ url_for('adminPanel')}}">Admin Panel</a>
          {% endif %}
-         {% if session['is_employee'] %}
+         {% if session['is_employee'] and not session['is_admin'] %}
          <a href="{{ url_for('manage_appointments')}}">Manage Appointments</a>
          {% endif %}
       </div>
