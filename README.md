@@ -1,7 +1,12 @@
 # Salon Management System
 
 A web-based application for managing salon appointments, employees, and services. Built with Flask (Python) and styled with custom CSS.
-<iframe width="560" height="315" src="https://drive.google.com/file/d/1u7obEstmwecpKNqbVL2pRSlFjatGc9Q9/view?usp=drive_link" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+https://github.com/user-attachments/assets/ad7700a8-d96c-4460-9049-4e88f6090897
+
+
 
 ## Features
 
